@@ -23,7 +23,9 @@ const path = require("path");
 const { findPort } = require("dev-server-ports");
 
 const PORT = parseInt(process.env.PORT, 10) || 3000;
-const HOST = "0.0.0.0";
+const HOST = process.env.HOST || "localhost";
+const devServerHostCheckDisabled = process.env.DISABLE_DEV_SERVER_HOST_CHECK === "true";
+const devServerHTTPSDisabled = process.env.DISABLE_DEV_SERVER_HTTPS === "true";
 
 const PORT_IN_USE_PROMPT = `${ chalk.blue("Be sure to update the following configurations if you proceed with the port change.") }
 
@@ -38,9 +40,9 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, "dist"),
         historyApiFallback: true,
-        https: false,
+        https: !devServerHTTPSDisabled,
         host: HOST,
-        disableHostCheck: true,
+        disableHostCheck: devServerHostCheckDisabled,
         inline: true,
         port: findPort(PORT, HOST, false, {
             extensions: {
