@@ -1,4 +1,4 @@
-# Use the official node:10-alpine image as the base image
+# Use the official Node.js 14 image as the base image
 FROM node:10-alpine
 
 # Set the working directory to /app
@@ -12,11 +12,6 @@ RUN npm install
 
 # Copy the rest of the application code to the container
 COPY . .
-
-# Set the environment variables
-ENV HOST=0.0.0.0
-ENV DISABLE_DEV_SERVER_HOST_CHECK=true
-ENV DISABLE_DEV_SERVER_HTTPS=true
 
 # Expose port 3000
 EXPOSE 3000
